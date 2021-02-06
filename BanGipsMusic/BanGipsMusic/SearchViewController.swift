@@ -7,41 +7,64 @@
 
 import UIKit
 
+struct TrackModel {
+    var trackName: String
+    var artistname: String
+}
+
 class SearchViewController: UITableViewController {
+    
+    var tracks = [ TrackModel(trackName: "FAAEEERr", artistname: "Scooter"),
+                   TrackModel(trackName: "i am here", artistname: "Beelly")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         view.backgroundColor = .systemBackground
+        setupSearchBar()
+        setupTableView()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    private func setupTableView() {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
+    }
+    
+    private func setupSearchBar() {
+//        navigationController?.navigationBar.barTintColor = .mainWhite()
+        navigationController?.navigationBar.shadowImage = UIImage()
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
 
     // MARK: - Table view data source
 
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tracks.count
+    }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let track = tracks[indexPath.row]
+        
+        var content = cell.defaultContentConfiguration()
+        content.text = "\(track.trackName)\n\(track.artistname)"
+        content.image = #imageLiteral(resourceName: "music")
+        content.imageProperties.maximumSize = CGSize(width: 50, height: 50)
+         
+        cell.contentConfiguration = content
+        
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -88,4 +111,12 @@ class SearchViewController: UITableViewController {
     }
     */
 
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+    }
+    
 }
