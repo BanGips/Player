@@ -15,8 +15,9 @@ struct TrackModel {
 
 class SearchViewController: UITableViewController {
     
-    var tracks = [ TrackModel(trackName: "FAAEEERr", artistname: "Scooter"),
-                   TrackModel(trackName: "i am here", artistname: "Beelly")]
+    var timer: Timer?
+    
+    var tracks = [Tracks]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +59,7 @@ class SearchViewController: UITableViewController {
         let track = tracks[indexPath.row]
         
         var content = cell.defaultContentConfiguration()
-        content.text = "\(track.trackName)\n\(track.artistname)"
+        content.text = "\(track.trackName)\n\(track.artistName)"
         content.image = #imageLiteral(resourceName: "music")
         content.imageProperties.maximumSize = CGSize(width: 50, height: 50)
          
@@ -117,18 +118,34 @@ class SearchViewController: UITableViewController {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let url = "https://itunes.apple.com/search?term=jack+johnson"
         
-        AF.request(url).responseData { (responseData) in
-            if let error = responseData.error {
-                print(error)
-                return
-            }
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
+            let url = "https://itunes.apple.com/search"
+            let params = ["term": searchText, "limit": "10"]
             
-            guard let data = responseData.data else { return }
-            let someString = String(data: data, encoding: .utf8)
-            print(someString)
-        }
+            
+            AF.request(url, method: .get, parameters: params, encoding: URLEncoding.default).responseData { (responseData) in
+                if let error = responseData.error {
+                    print(error)
+                    return
+                }
+                
+                guard let data = responseData.data else { return }
+                let decoder = JSONDecoder()
+                
+                do {
+                    let objects = try decoder.decode(SearchResponse.self, from: data)
+                    self.tracks = objects.results
+                    self.tableView.reloadData()
+                    
+                } catch let parseError {
+                    print(parseError.localizedDescription)
+                }
+            }
+        
+        })
+        
     }
     
 }

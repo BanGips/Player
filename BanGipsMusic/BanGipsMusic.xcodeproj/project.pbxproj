@@ -16,6 +16,7 @@
 		2C8B067325CDAD490054B83F /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8B067225CDAD490054B83F /* MainTabBarController.swift */; };
 		2C8B067725CDAF790054B83F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8B067625CDAF790054B83F /* SearchViewController.swift */; };
 		2C91429125D05256008829B0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2C91429025D05256008829B0 /* Alamofire */; };
+		2C91429425D05854008829B0 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91429325D05854008829B0 /* SearchResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		2C66253B25CDA9ED001CB899 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C8B067225CDAD490054B83F /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		2C8B067625CDAF790054B83F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		2C91429325D05854008829B0 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				2C66253125CDA9EC001CB899 /* ViewController.swift */,
 				2C8B067225CDAD490054B83F /* MainTabBarController.swift */,
 				2C8B067625CDAF790054B83F /* SearchViewController.swift */,
+				2C91429325D05854008829B0 /* SearchResponse.swift */,
 				2C66253325CDA9EC001CB899 /* Main.storyboard */,
 				2C66253625CDA9ED001CB899 /* Assets.xcassets */,
 				2C66253825CDA9ED001CB899 /* LaunchScreen.storyboard */,
@@ -153,6 +156,7 @@
 			files = (
 				2C8B067725CDAF790054B83F /* SearchViewController.swift in Sources */,
 				2C66253225CDA9EC001CB899 /* ViewController.swift in Sources */,
+				2C91429425D05854008829B0 /* SearchResponse.swift in Sources */,
 				2C66252E25CDA9EC001CB899 /* AppDelegate.swift in Sources */,
 				2C8B067325CDAD490054B83F /* MainTabBarController.swift in Sources */,
 				2C66253025CDA9EC001CB899 /* SceneDelegate.swift in Sources */,
