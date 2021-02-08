@@ -9,14 +9,30 @@
 import UIKit
 
 protocol SearchPresentationLogic {
-  func presentData(response: Search.Model.Response.ResponseType)
+    func presentData(response: Search.Model.Response.ResponseType)
 }
 
 class SearchPresenter: SearchPresentationLogic {
-  weak var viewController: SearchDisplayLogic?
-  
-  func presentData(response: Search.Model.Response.ResponseType) {
-  
-  }
-  
+    weak var viewController: SearchDisplayLogic?
+    
+    func presentData(response: Search.Model.Response.ResponseType) {
+        
+        switch response {
+        case .presentTracks(searchResponse: let searchResults):
+            
+            let cells = searchResults?.results.map { cellViewModel(from: $0) } ?? [ ]
+            let searchViewModel = SearchViewModel(cell: cells)
+            
+            viewController?.displayData(viewModel: .displayTracks(searchViewModel: searchViewModel))
+        }
+        
+    }
+    
+    private func cellViewModel(from track: Track) -> SearchViewModel.Cell {
+        return SearchViewModel.Cell(iconUrlString: track.artworkUrl100,
+                                    artistName: track.artistName,
+                                    trackName: track.trackName,
+                                    collectionName: track.collectionName ?? "")
+    }
+    
 }

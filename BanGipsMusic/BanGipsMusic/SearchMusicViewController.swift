@@ -17,7 +17,7 @@ class SearchMusicViewController: UITableViewController {
     
     var timer: Timer?
     
-    var tracks = [Tracks]()
+    var tracks = [Track]()
 
     override func viewDidLoad() {
         super.viewDidLoad()

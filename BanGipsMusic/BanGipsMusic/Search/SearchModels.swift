@@ -9,23 +9,32 @@
 import UIKit
 
 enum Search {
-   
-  enum Model {
-    struct Request {
-      enum RequestType {
-        case getTacks(text: String)
-      }
+    
+    enum Model {
+        struct Request {
+            enum RequestType {
+                case getTacks(text: String)
+            }
+        }
+        struct Response {
+            enum ResponseType {
+                case presentTracks(searchResponse: SearchResponse?)
+            }
+        }
+        struct ViewModel {
+            enum ViewModelData {
+                case displayTracks(searchViewModel: SearchViewModel)
+            }
+        }
     }
-    struct Response {
-      enum ResponseType {
-        case presentTracks
-      }
+}
+
+struct SearchViewModel {
+    struct Cell {
+        var iconUrlString: String?
+        var artistName: String
+        var trackName: String
+        var collectionName: String
     }
-    struct ViewModel {
-      enum ViewModelData {
-        case displayTracks
-      }
-    }
-  }
-  
+    let cell: [Cell]
 }

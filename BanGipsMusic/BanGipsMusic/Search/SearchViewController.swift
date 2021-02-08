@@ -13,10 +13,15 @@ protocol SearchDisplayLogic: class {
 }
 
 class SearchViewController: UIViewController, SearchDisplayLogic {
+    
     @IBOutlet weak var tableView: UITableView!
     
     var interactor: SearchBusinessLogic?
     var router: (NSObjectProtocol & SearchRoutingLogic)?
+    
+    private var searchViewModel = SearchViewModel(cell: [ ])
+    
+    var timer: Timer?
     
     
     // MARK: Setup
@@ -64,7 +69,11 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     }
     
     func displayData(viewModel: Search.Model.ViewModel.ViewModelData) {
-        
+        switch viewModel {
+        case .displayTracks(searchViewModel: let searchViewModel):
+            self.searchViewModel = searchViewModel
+            tableView.reloadData()
+        }
     }
     
 }
@@ -73,12 +82,19 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return searchViewModel.cell.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellid", for: indexPath)
-        cell.textLabel?.text = "\(indexPath)"
+        
+        let cellViewModel = searchViewModel.cell[indexPath.row]
+        var content = cell.defaultContentConfiguration()
+        content.text = "\(cellViewModel.trackName)\n\(cellViewModel.artistName)"
+        content.image = #imageLiteral(resourceName: "music")
+        content.imageProperties.maximumSize = CGSize(width: 50, height: 50)
+         
+        cell.contentConfiguration = content
         
         return cell
     }
@@ -89,7 +105,11 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        interactor?.makeRequest(request: .getTacks(text: searchText))
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+            self.interactor?.makeRequest(request: .getTacks(text: searchText))
+        })
+        
     }
     
 }
