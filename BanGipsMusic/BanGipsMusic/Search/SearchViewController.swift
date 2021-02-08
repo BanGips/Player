@@ -54,7 +54,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellid")
+        tableView.register(UINib(nibName: "TrackCell", bundle: nil), forCellReuseIdentifier: TrackCell.reuseID)
         
         setupSearchBar()
     }
@@ -86,17 +86,17 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellid", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.reuseID, for: indexPath) as! TrackCell
         
         let cellViewModel = searchViewModel.cell[indexPath.row]
-        var content = cell.defaultContentConfiguration()
-        content.text = "\(cellViewModel.trackName)\n\(cellViewModel.artistName)"
-        content.image = #imageLiteral(resourceName: "music")
-        content.imageProperties.maximumSize = CGSize(width: 50, height: 50)
-         
-        cell.contentConfiguration = content
+        cell.trackImageView.backgroundColor = .red
+        cell.configure(viewModel: cellViewModel) 
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 84
     }
 }
 

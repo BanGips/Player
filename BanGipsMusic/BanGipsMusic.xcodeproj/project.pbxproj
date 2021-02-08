@@ -25,6 +25,8 @@
 		2C9142B825D13CAE008829B0 /* SearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C9142B725D13CAE008829B0 /* SearchViewController.storyboard */; };
 		2C9142BD25D13F7C008829B0 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9142BC25D13F7C008829B0 /* UIViewController + Extension.swift */; };
 		2C9142C325D14363008829B0 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9142C225D14363008829B0 /* NetworkService.swift */; };
+		2C9142C825D17003008829B0 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9142C625D17003008829B0 /* TrackCell.swift */; };
+		2C9142C925D17003008829B0 /* TrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9142C725D17003008829B0 /* TrackCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		2C9142B725D13CAE008829B0 /* SearchViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchViewController.storyboard; sourceTree = "<group>"; };
 		2C9142BC25D13F7C008829B0 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
 		2C9142C225D14363008829B0 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		2C9142C625D17003008829B0 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
+		2C9142C725D17003008829B0 /* TrackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +91,6 @@
 				2C66253125CDA9EC001CB899 /* ViewController.swift */,
 				2C8B067225CDAD490054B83F /* MainTabBarController.swift */,
 				2C8B067625CDAF790054B83F /* SearchMusicViewController.swift */,
-				2C91429325D05854008829B0 /* SearchResponse.swift */,
 				2C9142BB25D13F5F008829B0 /* Helpers */,
 				2C66253625CDA9ED001CB899 /* Assets.xcassets */,
 				2C66253825CDA9ED001CB899 /* LaunchScreen.storyboard */,
@@ -99,6 +102,7 @@
 		2C91429625D139EA008829B0 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				2C9142C525D16FCC008829B0 /* Cell */,
 				2C9142B725D13CAE008829B0 /* SearchViewController.storyboard */,
 				2C9142AB25D13AF1008829B0 /* SearchViewController.swift */,
 				2C9142AC25D13AF1008829B0 /* SearchInteractor.swift */,
@@ -121,9 +125,27 @@
 		2C9142C125D14352008829B0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2C9142CB25D17575008829B0 /* Models */,
 				2C9142C225D14363008829B0 /* NetworkService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		2C9142C525D16FCC008829B0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2C9142C625D17003008829B0 /* TrackCell.swift */,
+				2C9142C725D17003008829B0 /* TrackCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2C9142CB25D17575008829B0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C91429325D05854008829B0 /* SearchResponse.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +214,7 @@
 				2C66253A25CDA9ED001CB899 /* LaunchScreen.storyboard in Resources */,
 				2C66253725CDA9ED001CB899 /* Assets.xcassets in Resources */,
 				2C9142B825D13CAE008829B0 /* SearchViewController.storyboard in Resources */,
+				2C9142C925D17003008829B0 /* TrackCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +230,7 @@
 				2C66253225CDA9EC001CB899 /* ViewController.swift in Sources */,
 				2C91429425D05854008829B0 /* SearchResponse.swift in Sources */,
 				2C9142B025D13AF1008829B0 /* SearchRouter.swift in Sources */,
+				2C9142C825D17003008829B0 /* TrackCell.swift in Sources */,
 				2C66252E25CDA9EC001CB899 /* AppDelegate.swift in Sources */,
 				2C9142C325D14363008829B0 /* NetworkService.swift in Sources */,
 				2C9142B325D13AF1008829B0 /* SearchInteractor.swift in Sources */,
