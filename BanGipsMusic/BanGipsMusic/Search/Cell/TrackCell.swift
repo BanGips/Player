@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol TrackCellViewModel {
     var iconUrlString: String? { get }
@@ -29,9 +30,18 @@ class TrackCell: UITableViewCell {
         // Initialization code
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        trackImageView.image = nil 
+    }
+    
     func configure(viewModel: TrackCellViewModel) {
         trackNameLabel.text = viewModel.trackName
         artistNameLabal.text = viewModel.artistName
         colectionNameLabel.text = viewModel.collectionName
+        
+        guard let url = URL(string: viewModel.iconUrlString ?? "") else { return }
+        trackImageView.kf.setImage(with: url)
     }
 }
