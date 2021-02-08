@@ -13,7 +13,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         
         
-        let searchVC = SearchMusicViewController()
+        let searchVC: SearchViewController = SearchViewController.loadFromStoryboard()
         let libraryVC = ViewController()
         tabBar.tintColor = .magenta
         
