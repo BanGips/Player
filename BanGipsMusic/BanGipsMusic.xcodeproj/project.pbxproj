@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C21EC7525D290590023F1AC /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C21EC7425D290590023F1AC /* FooterView.swift */; };
 		2C66252E25CDA9EC001CB899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66252D25CDA9EC001CB899 /* AppDelegate.swift */; };
 		2C66253025CDA9EC001CB899 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66252F25CDA9EC001CB899 /* SceneDelegate.swift */; };
 		2C66253225CDA9EC001CB899 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66253125CDA9EC001CB899 /* ViewController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C21EC7425D290590023F1AC /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		2C66252A25CDA9EC001CB899 /* BanGipsMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanGipsMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C66252D25CDA9EC001CB899 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C66252F25CDA9EC001CB899 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C21EC7325D2903A0023F1AC /* FooterView */ = {
+			isa = PBXGroup;
+			children = (
+				2C21EC7425D290590023F1AC /* FooterView.swift */,
+			);
+			path = FooterView;
+			sourceTree = "<group>";
+		};
 		2C66252125CDA9EC001CB899 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +114,7 @@
 		2C91429625D139EA008829B0 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				2C21EC7325D2903A0023F1AC /* FooterView */,
 				2C9142C525D16FCC008829B0 /* Cell */,
 				2C9142B725D13CAE008829B0 /* SearchViewController.storyboard */,
 				2C9142AB25D13AF1008829B0 /* SearchViewController.swift */,
@@ -234,6 +245,7 @@
 				2C66253225CDA9EC001CB899 /* ViewController.swift in Sources */,
 				2C91429425D05854008829B0 /* SearchResponse.swift in Sources */,
 				2C9142B025D13AF1008829B0 /* SearchRouter.swift in Sources */,
+				2C21EC7525D290590023F1AC /* FooterView.swift in Sources */,
 				2C9142C825D17003008829B0 /* TrackCell.swift in Sources */,
 				2C66252E25CDA9EC001CB899 /* AppDelegate.swift in Sources */,
 				2C9142C325D14363008829B0 /* NetworkService.swift in Sources */,
