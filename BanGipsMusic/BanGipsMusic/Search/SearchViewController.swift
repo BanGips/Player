@@ -120,7 +120,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellViewModel = searchViewModel.cell[indexPath.row]
         
-        let window = UIApplication.shared.keyWindow
+        let window = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
         let trackDetailView: TrackDetailView = TrackDetailView.loadFromNib()
         window?.addSubview(trackDetailView)
         
