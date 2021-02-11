@@ -37,12 +37,26 @@ class TrackDetailView: UIView {
         authorTitleLabel.text = viewModel.artistName
         playTrack(previewUrl: viewModel.previewUrl)
         monitorStartTime()
+        observeCurrentTime()
         
         let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600")
         guard let url = URL(string: string600 ?? "") else { return }
         trackImageView.kf.indicatorType = .activity
         trackImageView.kf.setImage(with: url)
     }
+    
+    private func observeCurrentTime() {
+        let interval = CMTimeMake(value: 1, timescale: 2)
+        player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] (time) in
+            self?.currentTimeLabel.text = time.toDisplayString()
+            
+            let durationTime = self?.player.currentItem?.duration
+            let currentDurationText = ((durationTime ?? CMTimeMake(value: 1, timescale: 1)) - time).toDisplayString()
+            self?.durationLabel.text = "-\(currentDurationText)"
+        }
+    }
+    
+    //MARK: - Time setup
     
     private func monitorStartTime() {
         let time = CMTimeMake(value: 1, timescale: 3)
@@ -59,6 +73,8 @@ class TrackDetailView: UIView {
         player.play()
     }
     
+    //MARK: - Setup transform for Image
+    
     private func enlargeImageView() {
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.trackImageView.transform = .identity
@@ -71,6 +87,7 @@ class TrackDetailView: UIView {
         }, completion: nil)
     }
     
+    //MARK: - Actions
     
     @IBAction func drugDownButtonTapped(_ sender: UIButton) {
         self.removeFromSuperview()
