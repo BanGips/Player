@@ -26,6 +26,14 @@ class TrackDetailView: UIView {
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var volumeSlider: UISlider!
     
+    
+    @IBOutlet weak var miniPlayButton: UIButton!
+    @IBOutlet weak var miniTackView: UIView!
+    @IBOutlet weak var miniGoForwardButton: UIButton!
+    @IBOutlet weak var maximaziedStackView: UIStackView!
+    @IBOutlet weak var miniTrackImageView: UIImageView!
+    @IBOutlet weak var miniTrackTitleLabal: UILabel!
+    
     let player: AVPlayer = {
         let player = AVPlayer()
         player.automaticallyWaitsToMinimizeStalling = false
@@ -42,16 +50,20 @@ class TrackDetailView: UIView {
     }
     
     func configure(viewModel: SearchViewModel.Cell) {
+        miniTrackTitleLabal.text = viewModel.trackName
         trackTitleLabel.text = viewModel.trackName
         authorTitleLabel.text = viewModel.artistName
         playTrack(previewUrl: viewModel.previewUrl)
         monitorStartTime()
         observeCurrentTime()
+        playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+        miniPlayButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
         
         let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600")
         guard let url = URL(string: string600 ?? "") else { return }
         trackImageView.kf.indicatorType = .activity
         trackImageView.kf.setImage(with: url)
+        miniTrackImageView.kf.setImage(with: url)
     }
     
     //MARK: - Time setup
@@ -142,10 +154,12 @@ class TrackDetailView: UIView {
         if player.timeControlStatus == .paused {
             player.play()
             playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            miniPlayButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
             enlargeImageView()
         } else {
             player.pause()
             playPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            miniPlayButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
             reduceImageView()
         }
     }
