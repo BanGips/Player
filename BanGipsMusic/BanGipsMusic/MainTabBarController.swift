@@ -8,12 +8,14 @@
 import UIKit
 
 protocol MainTabBarControllerDelegate: class {
-    func minimizeTrackDetailView() 
+    func minimizeTrackDetailView()
+    func maximizeTrackDetailView(viewModel: SearchViewModel.Cell?)
 }
 
 class MainTabBarController: UITabBarController {
     
     let searchVC: SearchViewController = SearchViewController.loadFromStoryboard()
+    let trackDetailView: TrackDetailView = TrackDetailView.loadFromNib()
     
     private var maxTopAnchor: NSLayoutConstraint!
     private var minTopAnchor: NSLayoutConstraint!
@@ -31,6 +33,10 @@ class MainTabBarController: UITabBarController {
             generateNavigationController(rootVC: searchVC, title: "Search", image: #imageLiteral(resourceName: "search")),
             generateNavigationController(rootVC: libraryVC, title: "Library", image: #imageLiteral(resourceName: "library"))
         ]
+        
+        searchVC.tabBarDelegate = self
+        trackDetailView.tabBarDelegate = self
+        trackDetailView.delegate = searchVC
     }
     
     private func generateNavigationController(rootVC: UIViewController, title: String, image: UIImage) -> UIViewController {
@@ -43,30 +49,45 @@ class MainTabBarController: UITabBarController {
     }
     
     private func setupTrackDetailView() {
-        let trackDetailView: TrackDetailView = TrackDetailView.loadFromNib()
-        trackDetailView.tabBarDelegate = self
-        trackDetailView.delegate = searchVC
+        trackDetailView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(trackDetailView, belowSubview: tabBar)
         
-        trackDetailView.translatesAutoresizingMaskIntoConstraints = false
-        maxTopAnchor = trackDetailView.topAnchor.constraint(equalTo: view.topAnchor)
+        maxTopAnchor = trackDetailView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height)
         minTopAnchor = trackDetailView.topAnchor.constraint(equalTo: tabBar.topAnchor, constant: -64)
         maxTopAnchor.isActive = true
-        bottomAnchor = trackDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.frame.height)
         
         trackDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         trackDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//        trackDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        bottomAnchor = trackDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.frame.height)
+        bottomAnchor.isActive = true
     }
 }
 
 extension MainTabBarController: MainTabBarControllerDelegate {
+    func maximizeTrackDetailView(viewModel: SearchViewModel.Cell?) {
+        minTopAnchor.isActive = false
+        maxTopAnchor.isActive = true
+        maxTopAnchor.constant = 0
+        bottomAnchor.constant = 0
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+        guard let viewModel = viewModel else { return }
+        self.trackDetailView.configure(viewModel: viewModel)
+        self.tabBar.isHidden = true
+    }
+    
     func minimizeTrackDetailView() {
         maxTopAnchor.isActive = false
+        bottomAnchor.constant = view.frame.height
         minTopAnchor.isActive = true
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
+            self.tabBar.isHidden = false
         }, completion: nil)
     }
     
