@@ -9,6 +9,12 @@ import UIKit
 import Kingfisher
 import AVKit
 
+protocol TrackMovingDelegate: class {
+    func moveForPreviouesTack() -> SearchViewModel.Cell?
+    func moveForNextTack() -> SearchViewModel.Cell?
+    
+}
+
 class TrackDetailView: UIView {
     
     @IBOutlet weak var trackImageView: UIImageView!
@@ -25,6 +31,8 @@ class TrackDetailView: UIView {
         player.automaticallyWaitsToMinimizeStalling = false
         return player
     }()
+    
+    weak var delegate: TrackMovingDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -117,9 +125,16 @@ class TrackDetailView: UIView {
     }
     
     @IBAction func previousTrack(_ sender: UIButton) {
+        let cellViewModel = delegate?.moveForNextTack()
+        guard cellViewModel != nil else { return }
+        self.configure(viewModel: cellViewModel!)
     }
     
     @IBAction func nextTrack(_ sender: UIButton) {
+        let cellViewModel = delegate?.moveForNextTack()
+        guard cellViewModel != nil else { return }
+        self.configure(viewModel: cellViewModel!)
+        
     }
     
     @IBAction func playPauseAction(_ sender: UIButton) {
