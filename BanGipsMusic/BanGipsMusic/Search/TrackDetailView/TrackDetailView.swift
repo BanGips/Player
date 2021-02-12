@@ -45,17 +45,6 @@ class TrackDetailView: UIView {
         trackImageView.kf.setImage(with: url)
     }
     
-    private func observeCurrentTime() {
-        let interval = CMTimeMake(value: 1, timescale: 2)
-        player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] (time) in
-            self?.currentTimeLabel.text = time.toDisplayString()
-            
-            let durationTime = self?.player.currentItem?.duration
-            let currentDurationText = ((durationTime ?? CMTimeMake(value: 1, timescale: 1)) - time).toDisplayString()
-            self?.durationLabel.text = "-\(currentDurationText)"
-        }
-    }
-    
     //MARK: - Time setup
     
     private func monitorStartTime() {
@@ -64,6 +53,26 @@ class TrackDetailView: UIView {
         player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
             self?.enlargeImageView()
         }
+    }
+    
+    private func observeCurrentTime() {
+        let interval = CMTimeMake(value: 1, timescale: 2)
+        player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] (time) in
+            self?.currentTimeLabel.text = time.toDisplayString()
+            
+            let durationTime = self?.player.currentItem?.duration
+            let currentDurationText = ((durationTime ?? CMTimeMake(value: 1, timescale: 1)) - time).toDisplayString()
+            self?.durationLabel.text = "-\(currentDurationText)"
+            self?.updateCurrentTimeSlider()
+        }
+    }
+    
+    private func updateCurrentTimeSlider() {
+        let currentTimeSeconds = CMTimeGetSeconds(player.currentTime())
+        let durationSeconds = CMTimeGetSeconds(player.currentItem?.duration ?? CMTimeMake(value: 1, timescale: 1))
+        
+        let percentage = currentTimeSeconds / durationSeconds
+        self.currentTimeSlider.value = Float(percentage)
     }
     
     private func playTrack(previewUrl: String?) {
@@ -94,9 +103,17 @@ class TrackDetailView: UIView {
     }
     
     @IBAction func handleCurrentTimeSlider(_ sender: UISlider) {
+        let percentage = currentTimeSlider.value
+        guard let duration = player.currentItem?.duration else { return }
+        let durationInSecond = CMTimeGetSeconds(duration)
+        let seekTimeInSeconds = Float64(percentage) * durationInSecond
+        let seekTime = CMTimeMakeWithSeconds(seekTimeInSeconds, preferredTimescale: 1)
+        player.seek(to: seekTime)
+        
     }
     
     @IBAction func handleValumeSlider(_ sender: UISlider) {
+        player.volume = volumeSlider.value
     }
     
     @IBAction func previousTrack(_ sender: UIButton) {
