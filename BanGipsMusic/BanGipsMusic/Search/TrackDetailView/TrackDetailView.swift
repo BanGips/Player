@@ -16,6 +16,7 @@ protocol TrackMovingDelegate: class {
 }
 
 class TrackDetailView: UIView {
+    @IBOutlet var playPauseButtons: [UIButton]!
     
     @IBOutlet weak var trackImageView: UIImageView!
     @IBOutlet weak var currentTimeSlider: UISlider!
@@ -47,6 +48,8 @@ class TrackDetailView: UIView {
         super.awakeFromNib()
         
         trackImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        miniPlayButton.imageEdgeInsets = .init(top: 11, left: 11, bottom: 11, right: 11)
+        setupGestureRecognizer()
     }
     
     func configure(viewModel: SearchViewModel.Cell) {
@@ -56,8 +59,7 @@ class TrackDetailView: UIView {
         playTrack(previewUrl: viewModel.previewUrl)
         monitorStartTime()
         observeCurrentTime()
-        playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
-        miniPlayButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+        playPauseButtons.forEach { $0.setImage(#imageLiteral(resourceName: "pause"), for: .normal)}
         
         let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600")
         guard let url = URL(string: string600 ?? "") else { return }
@@ -65,6 +67,53 @@ class TrackDetailView: UIView {
         trackImageView.kf.setImage(with: url)
         miniTrackImageView.kf.setImage(with: url)
     }
+    
+    private func setupGestureRecognizer() {
+        miniTackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximized)))
+        miniTackView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanMinimized)))
+    }
+    
+    @objc private func handleTapMaximized() {
+        self.tabBarDelegate?.maximizeTrackDetailView(viewModel: nil)
+    }
+    
+    @objc private func handlePanMinimized(gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            print("began")
+        case .changed:
+            handlePanChanged(gesture: gesture)
+        case .ended:
+            handlePanEnded(gesture: gesture)
+        @unknown default:
+            print("Unnosw")
+        }
+    }
+    
+    private func handlePanChanged(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: superview)
+        self.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        
+        let newAlpha = 1 + translation.y / 200
+        self.miniTackView.alpha = newAlpha < 0 ? 0 : newAlpha
+        self.maximaziedStackView.alpha = -translation.y / 200
+    }
+    
+    private func handlePanEnded(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: superview)
+        let velocity = gesture.velocity(in: superview)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.transform = .identity
+            if translation.y < -200 || velocity.y < -500 {
+                self.tabBarDelegate?.maximizeTrackDetailView(viewModel: nil)
+            } else {
+                self.miniTackView.alpha = 1
+                self.maximaziedStackView.alpha = 0
+            }
+        }, completion: nil)
+    }
+    
     
     //MARK: - Time setup
     
@@ -153,13 +202,11 @@ class TrackDetailView: UIView {
     @IBAction func playPauseAction(_ sender: UIButton) {
         if player.timeControlStatus == .paused {
             player.play()
-            playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
-            miniPlayButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            playPauseButtons.forEach { $0.setImage(#imageLiteral(resourceName: "pause"), for: .normal)}
             enlargeImageView()
         } else {
             player.pause()
-            playPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
-            miniPlayButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            playPauseButtons.forEach { $0.setImage(#imageLiteral(resourceName: "play"), for: .normal)}
             reduceImageView()
         }
     }

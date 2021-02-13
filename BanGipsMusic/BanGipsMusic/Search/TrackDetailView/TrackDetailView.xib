@@ -213,6 +213,8 @@
                 <outlet property="trackImageView" destination="lTG-ZP-1Qt" id="Xgd-a2-GcC"/>
                 <outlet property="trackTitleLabel" destination="ADH-P1-vqJ" id="4l5-q8-gWv"/>
                 <outlet property="volumeSlider" destination="wj3-eF-qEC" id="yHk-TY-YeN"/>
+                <outletCollection property="playPauseButtons" destination="s00-Py-UIl" collectionClass="NSMutableArray" id="0B5-Py-ivW"/>
+                <outletCollection property="playPauseButtons" destination="86K-PL-vMl" collectionClass="NSMutableArray" id="nDI-k5-ey6"/>
             </connections>
             <point key="canvasLocation" x="139" y="92"/>
         </view>

@@ -74,8 +74,8 @@ extension MainTabBarController: MainTabBarControllerDelegate {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
             self.tabBar.isHidden = true
-            self.trackDetailView.miniTackView.isHidden = true
-            self.trackDetailView.maximaziedStackView.isHidden = false
+            self.trackDetailView.miniTackView.alpha = 0
+            self.trackDetailView.maximaziedStackView.alpha = 1
         }, completion: nil)
         
         guard let viewModel = viewModel else { return }
@@ -91,8 +91,8 @@ extension MainTabBarController: MainTabBarControllerDelegate {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
             self.tabBar.isHidden = false
-            self.trackDetailView.miniTackView.isHidden = false
-            self.trackDetailView.maximaziedStackView.isHidden = true
+            self.trackDetailView.miniTackView.alpha = 1
+            self.trackDetailView.maximaziedStackView.alpha = 0
         }, completion: nil)
     }
     
