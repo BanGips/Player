@@ -71,6 +71,25 @@ class TrackDetailView: UIView {
     private func setupGestureRecognizer() {
         miniTackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximized)))
         miniTackView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanMinimized)))
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
+    }
+    
+    @objc private func handleDismiss(gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .changed:
+            let translation = gesture.translation(in: superview)
+            maximaziedStackView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        case .ended:
+            let translation = gesture.translation(in: superview)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                self.maximaziedStackView.transform = .identity
+                if translation.y > 50 {
+                    self.tabBarDelegate?.minimizeTrackDetailView()
+                }
+            }, completion: nil)
+        @unknown default:
+            print("Unknown")
+        }
     }
     
     @objc private func handleTapMaximized() {
@@ -79,14 +98,12 @@ class TrackDetailView: UIView {
     
     @objc private func handlePanMinimized(gesture: UIPanGestureRecognizer) {
         switch gesture.state {
-        case .began:
-            print("began")
         case .changed:
             handlePanChanged(gesture: gesture)
         case .ended:
             handlePanEnded(gesture: gesture)
         @unknown default:
-            print("Unnosw")
+            print("unknown")
         }
     }
     
@@ -103,7 +120,7 @@ class TrackDetailView: UIView {
         let translation = gesture.translation(in: superview)
         let velocity = gesture.velocity(in: superview)
         
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.transform = .identity
             if translation.y < -200 || velocity.y < -500 {
                 self.tabBarDelegate?.maximizeTrackDetailView(viewModel: nil)
