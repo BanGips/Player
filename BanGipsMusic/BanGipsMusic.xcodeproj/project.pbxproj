@@ -10,7 +10,6 @@
 		2C21EC7525D290590023F1AC /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C21EC7425D290590023F1AC /* FooterView.swift */; };
 		2C66252E25CDA9EC001CB899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66252D25CDA9EC001CB899 /* AppDelegate.swift */; };
 		2C66253025CDA9EC001CB899 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66252F25CDA9EC001CB899 /* SceneDelegate.swift */; };
-		2C66253225CDA9EC001CB899 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66253125CDA9EC001CB899 /* ViewController.swift */; };
 		2C66253725CDA9ED001CB899 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C66253625CDA9ED001CB899 /* Assets.xcassets */; };
 		2C66253A25CDA9ED001CB899 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C66253825CDA9ED001CB899 /* LaunchScreen.storyboard */; };
 		2C75640925D548ED005E6064 /* TrackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C75640825D548ED005E6064 /* TrackDetailView.swift */; };
@@ -30,6 +29,8 @@
 		2C9142C825D17003008829B0 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9142C625D17003008829B0 /* TrackCell.swift */; };
 		2C9142C925D17003008829B0 /* TrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9142C725D17003008829B0 /* TrackCell.xib */; };
 		2C9142CF25D17EB1008829B0 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2C9142CE25D17EB1008829B0 /* Kingfisher */; };
+		2CA70FEE25D81A5900C2CEBC /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA70FED25D81A5900C2CEBC /* Library.swift */; };
+		2CA7100E25D8251B00C2CEBC /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7100D25D8251B00C2CEBC /* LibraryCell.swift */; };
 		2CEC017425D5718800B82550 /* SMTime + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC017325D5718800B82550 /* SMTime + Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +39,6 @@
 		2C66252A25CDA9EC001CB899 /* BanGipsMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BanGipsMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C66252D25CDA9EC001CB899 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C66252F25CDA9EC001CB899 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2C66253125CDA9EC001CB899 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2C66253625CDA9ED001CB899 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C66253925CDA9ED001CB899 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C66253B25CDA9ED001CB899 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,6 +57,8 @@
 		2C9142C225D14363008829B0 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		2C9142C625D17003008829B0 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		2C9142C725D17003008829B0 /* TrackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackCell.xib; sourceTree = "<group>"; };
+		2CA70FED25D81A5900C2CEBC /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		2CA7100D25D8251B00C2CEBC /* LibraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 		2CEC017325D5718800B82550 /* SMTime + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SMTime + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,8 +106,8 @@
 				2C66252D25CDA9EC001CB899 /* AppDelegate.swift */,
 				2C66252F25CDA9EC001CB899 /* SceneDelegate.swift */,
 				2C91429625D139EA008829B0 /* Search */,
-				2C66253125CDA9EC001CB899 /* ViewController.swift */,
 				2C8B067225CDAD490054B83F /* MainTabBarController.swift */,
+				2CA70FED25D81A5900C2CEBC /* Library.swift */,
 				2C9142BB25D13F5F008829B0 /* Helpers */,
 				2C66253625CDA9ED001CB899 /* Assets.xcassets */,
 				2C66253825CDA9ED001CB899 /* LaunchScreen.storyboard */,
@@ -163,6 +165,7 @@
 			children = (
 				2C9142C625D17003008829B0 /* TrackCell.swift */,
 				2C9142C725D17003008829B0 /* TrackCell.xib */,
+				2CA7100D25D8251B00C2CEBC /* LibraryCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -256,7 +259,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9142B225D13AF1008829B0 /* SearchViewController.swift in Sources */,
-				2C66253225CDA9EC001CB899 /* ViewController.swift in Sources */,
 				2C91429425D05854008829B0 /* SearchResponse.swift in Sources */,
 				2C9142B025D13AF1008829B0 /* SearchRouter.swift in Sources */,
 				2C21EC7525D290590023F1AC /* FooterView.swift in Sources */,
@@ -265,6 +267,7 @@
 				2C9142C325D14363008829B0 /* NetworkService.swift in Sources */,
 				2C9142B325D13AF1008829B0 /* SearchInteractor.swift in Sources */,
 				2C8B067325CDAD490054B83F /* MainTabBarController.swift in Sources */,
+				2CA7100E25D8251B00C2CEBC /* LibraryCell.swift in Sources */,
 				2C9142AF25D13AF1008829B0 /* SearchWorker.swift in Sources */,
 				2C66253025CDA9EC001CB899 /* SceneDelegate.swift in Sources */,
 				2C9142AE25D13AF1008829B0 /* SearchPresenter.swift in Sources */,
@@ -272,6 +275,7 @@
 				2C9142BD25D13F7C008829B0 /* UIViewController + Extension.swift in Sources */,
 				2C75640925D548ED005E6064 /* TrackDetailView.swift in Sources */,
 				2C9142B125D13AF1008829B0 /* SearchModels.swift in Sources */,
+				2CA70FEE25D81A5900C2CEBC /* Library.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
