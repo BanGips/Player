@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct Library: View {
-    let tracks = UserDefaults.standard.savedTracks()
+    @State var tracks = UserDefaults.standard.savedTracks()
+    @State private var showAlert  = false
+    @State private var track: SearchViewModel.Cell!
+    
+    weak var tabBarDelegate: MainTabBarControllerDelegate?
     
     var body: some View {
         NavigationView {
@@ -16,7 +20,8 @@ struct Library: View {
                 GeometryReader { geometry in
                     HStack(spacing: 20) {
                         Button(action: {
-                            print(123)
+                            self.track = tracks.first
+                            self.tabBarDelegate?.maximizeTrackDetailView(viewModel: track)
                         }, label: {
                             Image(systemName: "play.fill")
                         })
@@ -25,7 +30,7 @@ struct Library: View {
                         .background(Color(#colorLiteral(red: 0.869320976, green: 0.869320976, blue: 0.869320976, alpha: 1)))
                         .cornerRadius(10)
                         Button(action: {
-
+                            self.tracks = UserDefaults.standard.savedTracks()
                         }, label: {
                             Image(systemName: "arrow.2.circlepath")
                         })
@@ -35,15 +40,40 @@ struct Library: View {
                         .cornerRadius(10)
                     }
                 }.padding().frame(height: 70)
-
+                
                 Divider()
-                List(tracks) { track in
-                    LibraryCell(cell: track)
-                    
-
-                }.listRowBackground(Color.clear)
-            }
+                List {
+                    ForEach(tracks) { track in
+                        LibraryCell(cell: track).gesture(LongPressGesture().onEnded { (_) in
+                            self.track = track
+                            self.showAlert = true
+                        }.simultaneously(with: TapGesture().onEnded{ (_) in
+                            tabBarDelegate?.maximizeTrackDetailView(viewModel: track)
+                        }))
+                    }.onDelete(perform: delete)
+                }
+            }.actionSheet(isPresented: $showAlert, content: {
+                ActionSheet(title: Text("Delete this tack"), buttons: [.destructive(Text("Delete"), action: {
+                    self.delete(track: track)
+                }), .cancel()])
+            })
             .navigationTitle("Library")
+        }
+    }
+    
+    func delete(offsets: IndexSet) {
+        tracks.remove(atOffsets: offsets)
+        if let saveData = try? NSKeyedArchiver.archivedData(withRootObject: tracks, requiringSecureCoding: false) {
+            UserDefaults.standard.set(saveData, forKey: UserDefaults.favoriteTrackKey)
+        }
+    }
+    
+    func delete(track: SearchViewModel.Cell) {
+        let index = tracks.firstIndex(of: track)
+        guard let safeIndex = index else { return }
+        tracks.remove(at: safeIndex)
+        if let saveData = try? NSKeyedArchiver.archivedData(withRootObject: tracks, requiringSecureCoding: false) {
+            UserDefaults.standard.set(saveData, forKey: UserDefaults.favoriteTrackKey)
         }
     }
 }

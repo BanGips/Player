@@ -13,7 +13,6 @@ struct LibraryCell: View {
     
     var body: some View {
         HStack {
-//            Image("Knob").resizable().frame(width: 50, height: 50)
             let url = URL(string: cell.iconUrlString!)!
             URLImage(url: url) { $0.resizable().frame(width: 50, height: 50) }
             VStack(alignment: .leading) {
