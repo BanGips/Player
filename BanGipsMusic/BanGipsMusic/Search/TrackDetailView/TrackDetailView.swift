@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 import AVKit
 
-protocol TrackMovingDelegate: class {
+protocol TrackMovingDelegate {
     func moveForPreviouesTack() -> SearchViewModel.Cell?
     func moveForNextTack() -> SearchViewModel.Cell?
     
@@ -41,7 +41,7 @@ class TrackDetailView: UIView {
         return player
     }()
     
-    weak var delegate: TrackMovingDelegate?
+    var delegate: TrackMovingDelegate?
     weak var tabBarDelegate: MainTabBarControllerDelegate?
     
     override func awakeFromNib() {
@@ -204,7 +204,7 @@ class TrackDetailView: UIView {
     }
     
     @IBAction func previousTrack(_ sender: UIButton) {
-        let cellViewModel = delegate?.moveForNextTack()
+        let cellViewModel = delegate?.moveForPreviouesTack()
         guard cellViewModel != nil else { return }
         self.configure(viewModel: cellViewModel!)
     }

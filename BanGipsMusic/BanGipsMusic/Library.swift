@@ -48,6 +48,10 @@ struct Library: View {
                             self.track = track
                             self.showAlert = true
                         }.simultaneously(with: TapGesture().onEnded{ (_) in
+                            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+                            let tabBarVC = keyWindow?.rootViewController as? MainTabBarController
+                            tabBarVC?.trackDetailView.delegate = self
+                            self.track = track
                             tabBarDelegate?.maximizeTrackDetailView(viewModel: track)
                         }))
                     }.onDelete(perform: delete)
@@ -82,4 +86,36 @@ struct Library_Previews: PreviewProvider {
     static var previews: some View {
         Library()
     }
+}
+
+extension Library: TrackMovingDelegate {
+    func moveForPreviouesTack() -> SearchViewModel.Cell? {
+        let index = tracks.firstIndex(of: track)
+        guard let safeIndex = index else { return nil }
+        var nextTrack: SearchViewModel.Cell
+        if safeIndex - 1 == -1 {
+            nextTrack = tracks.last!
+        } else {
+            nextTrack = tracks[safeIndex - 1]
+        }
+        
+        self.track = nextTrack
+        return nextTrack
+    }
+    
+    func moveForNextTack() -> SearchViewModel.Cell? {
+        let index = tracks.firstIndex(of: track)
+        guard let safeIndex = index else { return nil }
+        var nextTrack: SearchViewModel.Cell
+        if safeIndex + 1 == tracks.count {
+            nextTrack = tracks.first!
+        } else {
+            nextTrack = tracks[safeIndex + 1]
+        }
+        
+        self.track = nextTrack
+        return nextTrack
+    }
+    
+    
 }

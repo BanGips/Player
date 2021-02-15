@@ -53,6 +53,13 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        let tabBarVC = keyWindow?.rootViewController as? MainTabBarController
+        tabBarVC?.trackDetailView.delegate = self
+    }
+    
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
