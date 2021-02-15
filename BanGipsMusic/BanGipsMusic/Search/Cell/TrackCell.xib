@@ -55,6 +55,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addTrack" destination="iZd-6W-AbW" id="M5t-Wl-I6k"/>
                 <outlet property="artistNameLabal" destination="ict-J5-byD" id="pXa-Bn-1TA"/>
                 <outlet property="colectionNameLabel" destination="cfN-cZ-vMu" id="AEF-Po-xEb"/>
                 <outlet property="trackImageView" destination="IqN-lj-94P" id="g3N-1C-Vj4"/>

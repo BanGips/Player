@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Library: View {
+    let tracks = UserDefaults.standard.savedTracks()
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -35,9 +37,9 @@ struct Library: View {
                 }.padding().frame(height: 70)
 
                 Divider()
-                List {
-                    LibraryCell()
-                    LibraryCell()
+                List(tracks) { track in
+                    LibraryCell(cell: track)
+                    
 
                 }.listRowBackground(Color.clear)
             }

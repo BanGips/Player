@@ -32,6 +32,8 @@
 		2CA70FEE25D81A5900C2CEBC /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA70FED25D81A5900C2CEBC /* Library.swift */; };
 		2CA7100E25D8251B00C2CEBC /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7100D25D8251B00C2CEBC /* LibraryCell.swift */; };
 		2CEC017425D5718800B82550 /* SMTime + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC017325D5718800B82550 /* SMTime + Extension.swift */; };
+		57B35F8425DA6E8100C66376 /* UserDefaults + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B35F8325DA6E8100C66376 /* UserDefaults + Extension.swift */; };
+		57B35FA925DA7D8A00C66376 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 57B35FA825DA7D8A00C66376 /* URLImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,7 @@
 		2CA70FED25D81A5900C2CEBC /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		2CA7100D25D8251B00C2CEBC /* LibraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 		2CEC017325D5718800B82550 /* SMTime + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SMTime + Extension.swift"; sourceTree = "<group>"; };
+		57B35F8325DA6E8100C66376 /* UserDefaults + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9142CF25D17EB1008829B0 /* Kingfisher in Frameworks */,
+				57B35FA925DA7D8A00C66376 /* URLImage in Frameworks */,
 				2C91429125D05256008829B0 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,6 +151,7 @@
 			children = (
 				2C9142BC25D13F7C008829B0 /* UIViewController + Extension.swift */,
 				2CEC017325D5718800B82550 /* SMTime + Extension.swift */,
+				57B35F8325DA6E8100C66376 /* UserDefaults + Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 			packageProductDependencies = (
 				2C91429025D05256008829B0 /* Alamofire */,
 				2C9142CE25D17EB1008829B0 /* Kingfisher */,
+				57B35FA825DA7D8A00C66376 /* URLImage */,
 			);
 			productName = BanGipsMusic;
 			productReference = 2C66252A25CDA9EC001CB899 /* BanGipsMusic.app */;
@@ -228,6 +234,7 @@
 			packageReferences = (
 				2C91428F25D05256008829B0 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				2C9142CD25D17EB1008829B0 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				57B35FA725DA7D8A00C66376 /* XCRemoteSwiftPackageReference "url-image" */,
 			);
 			productRefGroup = 2C66252B25CDA9EC001CB899 /* Products */;
 			projectDirPath = "";
@@ -262,6 +269,7 @@
 				2C91429425D05854008829B0 /* SearchResponse.swift in Sources */,
 				2C9142B025D13AF1008829B0 /* SearchRouter.swift in Sources */,
 				2C21EC7525D290590023F1AC /* FooterView.swift in Sources */,
+				57B35F8425DA6E8100C66376 /* UserDefaults + Extension.swift in Sources */,
 				2C9142C825D17003008829B0 /* TrackCell.swift in Sources */,
 				2C66252E25CDA9EC001CB899 /* AppDelegate.swift in Sources */,
 				2C9142C325D14363008829B0 /* NetworkService.swift in Sources */,
@@ -487,6 +495,14 @@
 				minimumVersion = 6.1.0;
 			};
 		};
+		57B35FA725DA7D8A00C66376 /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -499,6 +515,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2C9142CD25D17EB1008829B0 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		57B35FA825DA7D8A00C66376 /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57B35FA725DA7D8A00C66376 /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

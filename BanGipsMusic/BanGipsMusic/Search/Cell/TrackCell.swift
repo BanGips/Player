@@ -21,9 +21,11 @@ class TrackCell: UITableViewCell {
     @IBOutlet weak var trackImageView: UIImageView!
     @IBOutlet weak var artistNameLabal: UILabel!
     @IBOutlet weak var colectionNameLabel: UILabel!
+    @IBOutlet weak var addTrack: UIButton!
     
     static let reuseID = "TrackCell"
     var cell: SearchViewModel.Cell?
+    let defaults = UserDefaults.standard
     
     
     override func awakeFromNib() {
@@ -39,6 +41,15 @@ class TrackCell: UITableViewCell {
     
     func configure(viewModel: SearchViewModel.Cell) {
         self.cell = viewModel
+        let savedTrack = defaults.savedTracks()
+        
+        let hasAdded = savedTrack.firstIndex(where: { $0.trackName.lowercased() == self.cell?.trackName.lowercased() && $0.artistName.lowercased() == self.cell?.artistName.lowercased()}) != nil
+        if hasAdded {
+            addTrack.isHidden = true
+        } else {
+            addTrack.isHidden = false
+        }
+        
         trackNameLabel.text = viewModel.trackName
         artistNameLabal.text = viewModel.artistName
         colectionNameLabel.text = viewModel.collectionName
@@ -47,16 +58,14 @@ class TrackCell: UITableViewCell {
         trackImageView.kf.setImage(with: url)
     }
     @IBAction func addTrackAction(_ sender: UIButton) {
-        let defaults = UserDefaults.standard
-        if let saveData = try? NSKeyedArchiver.archivedData(withRootObject: cell, requiringSecureCoding: false) {
-            defaults.set(saveData, forKey: "track")
-            print("YEEP")
-        }
+        addTrack.isHidden = true
+        guard let cell = cell else { return }
+        var listOfTracks = defaults.savedTracks()
         
-        if let savedTrack = defaults.object(forKey: "track") as? Data {
-            if let decodedTrack = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedTrack) as? SearchViewModel.Cell {
-                print(decodedTrack.trackName, decodedTrack.artistName)
-            }
+        listOfTracks.append(cell)
+        
+        if let saveData = try? NSKeyedArchiver.archivedData(withRootObject: listOfTracks, requiringSecureCoding: false) {
+            defaults.set(saveData, forKey: UserDefaults.favoriteTrackKey)
         }
     }
 }
